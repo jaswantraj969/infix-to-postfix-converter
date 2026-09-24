@@ -1,0 +1,68 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--s-8) var(--gutter) var(--s-16);
+}
+
+/* ---- two-column workspace ---------------------------------------------- */
+.workspace {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  align-items: start;
+}
+
+.workspace-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  min-width: 0;
+}
+
+/* The examples sit full-width under the workspace: as a third column item they
+   left a tall empty gap beside the result card. */
+.workspace + .examples-card {
+  margin-top: var(--s-5);
+}
+
+/* ---- section headings --------------------------------------------------- */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.section-icon { color: var(--accent); }
+
+/* ---- footer ------------------------------------------------------------- */
+.app-footer {
+  border-top: 1px solid var(--border);
+  padding: var(--s-6) var(--gutter);
+  background: var(--bg-sunken);
+}
+.app-footer p {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.7;
+}
+
+@media (max-width: 980px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .app-main { padding-top: var(--s-6); padding-bottom: var(--s-12); }
+  .section { margin-top: var(--s-10); }
+}

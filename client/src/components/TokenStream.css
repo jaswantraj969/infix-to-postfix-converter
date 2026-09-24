@@ -1,0 +1,75 @@
+.token-stream {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.token-stream-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.panel-meta {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+.token-list {
+  list-style: none;
+  margin: 0;
+  padding: var(--s-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.token-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--s-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  opacity: 0.72;
+  transition: opacity var(--normal) var(--ease), background var(--normal) var(--ease),
+    border-color var(--normal) var(--ease), transform var(--normal) var(--ease);
+}
+
+.token-done { opacity: 0.9; }
+
+.token-current {
+  opacity: 1;
+  background: var(--accent-soft);
+  border-color: var(--accent-line);
+  transform: translateY(-2px);
+}
+.token-current .token {
+  box-shadow: 0 0 0 1px var(--accent-line);
+}
+
+.token-type {
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+@media (max-width: 560px) {
+  .token-type { display: none; }
+  .token-slot { padding: var(--s-1); }
+}

@@ -1,0 +1,288 @@
+.viz {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+/* ---- controls ---------------------------------------------------------- */
+.viz-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  padding: var(--s-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.viz-play { min-width: 96px; }
+
+.viz-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex: 1;
+  min-width: 190px;
+  margin-left: var(--s-2);
+}
+
+.viz-slider {
+  flex: 1;
+  min-width: 90px;
+  height: 4px;
+  appearance: none;
+  background: var(--border-strong);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+.viz-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  cursor: pointer;
+}
+.viz-slider::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  cursor: pointer;
+}
+
+.viz-step-count {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.viz-step-count strong { color: var(--text); }
+
+/* ---- stack + output ---------------------------------------------------- */
+.viz-machine {
+  display: grid;
+  grid-template-columns: minmax(150px, 210px) 1fr;
+  gap: var(--s-4);
+  align-items: stretch;
+}
+
+.machine-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.machine-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+/* The stack frame has walls on three sides - open at the top, like a stack. */
+.stack-frame {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 188px;
+  padding: var(--s-3) var(--s-3) var(--s-4);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  border-top: 1px dashed var(--border-strong);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.stack-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.stack-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  position: relative;
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--c-operator);
+  animation: stack-push var(--slow) var(--ease);
+}
+
+/* Brackets use the same colour here as in the token chips, so the legend holds. */
+.stack-cell-paren { color: var(--c-paren); }
+
+.stack-cell-top {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent-line);
+}
+
+.stack-top-label {
+  position: absolute;
+  right: var(--s-2);
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@keyframes stack-push {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.stack-empty,
+.output-empty {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-faint);
+  text-align: center;
+  padding: var(--s-4) 0;
+}
+
+.stack-base {
+  position: absolute;
+  left: var(--s-3);
+  right: var(--s-3);
+  bottom: 9px;
+  height: 2px;
+  background: var(--border-strong);
+  border-radius: 2px;
+}
+
+/* ---- output ------------------------------------------------------------ */
+.output-frame {
+  flex: 1;
+  min-height: 188px;
+  padding: var(--s-4);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: flex-start;
+  transition: border-color var(--normal) var(--ease), background var(--normal) var(--ease);
+}
+.output-frame-complete {
+  border-color: var(--success-line);
+  background: rgba(109, 220, 154, 0.05);
+}
+
+.output-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-content: flex-start;
+}
+
+.output-cell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  padding: 0.3rem 0.55rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text);
+  animation: output-emit var(--normal) var(--ease);
+}
+
+@keyframes output-emit {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.output-complete-note {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--text-xs);
+  color: var(--success);
+}
+
+/* ---- current action ---------------------------------------------------- */
+.viz-action {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius);
+  transition: border-color var(--normal) var(--ease);
+}
+.viz-action.tone-operand { border-left-color: var(--c-identifier); }
+.viz-action.tone-push    { border-left-color: var(--c-operator); }
+.viz-action.tone-pop     { border-left-color: var(--c-paren); }
+.viz-action.tone-flush   { border-left-color: var(--success); }
+
+.viz-action-token { flex: none; padding-top: 1px; }
+.viz-action-end {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+}
+
+.viz-action-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.viz-action-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text);
+}
+.viz-action-detail {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ---- responsive -------------------------------------------------------- */
+@media (max-width: 720px) {
+  .viz-machine {
+    grid-template-columns: 1fr;
+  }
+  .stack-frame {
+    min-height: 108px;
+    border-radius: var(--radius);
+    border-top-style: solid;
+  }
+  .output-frame { min-height: 88px; }
+  .viz-progress {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    padding-top: var(--s-2);
+    border-top: 1px solid var(--border);
+  }
+  .viz-play { flex: 1; }
+}

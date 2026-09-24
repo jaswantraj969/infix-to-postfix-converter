@@ -1,0 +1,89 @@
+.variable-header-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.variable-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.variable-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.variable-intro {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.variable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: var(--s-3);
+}
+
+.variable-field {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3);
+  background: var(--surface-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+}
+.variable-field:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.variable-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--c-identifier);
+  max-width: 9ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.variable-equals {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+}
+
+.variable-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  padding: 0.15rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.variable-input:focus { outline: none; }
+.variable-input::placeholder { color: var(--text-faint); }
+
+/* Number inputs keep their spinners on desktop but they crowd a small field. */
+.variable-input::-webkit-outer-spin-button,
+.variable-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.variable-input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@media (max-width: 480px) {
+  .variable-grid { grid-template-columns: 1fr 1fr; }
+}

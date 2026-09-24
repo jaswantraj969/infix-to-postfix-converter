@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+
+# production build output
+dist/
+
+# logs
+*.log
+npm-debug.log*
+
+# local SQLite database (created automatically on first backend start)
+server/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# environment / secrets
+.env
+.env.*
+
+# editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
